@@ -1,0 +1,25 @@
+name: Spellcheck Action
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  build:
+    name: Spellcheck
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Spellcheck with reviewdog
+      uses: reviewdog/action-typos@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        reporter: github-pr-review
+        filter_mode: diff_context
+        fail_level: error
+        typos_flags: |
+          **/*.md
+          --config ./.typos.toml

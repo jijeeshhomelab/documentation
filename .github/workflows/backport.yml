@@ -1,0 +1,32 @@
+name: Cherry-pick trigger
+
+on:
+  pull_request:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  parse-label:
+    if: startsWith(github.event.label.name, 'cherry-pick/')
+    runs-on: ubuntu-latest
+    outputs:
+      base_branch: ${{ steps.label.outputs.base }}
+
+    steps:
+      - name: Parse label
+        id: label
+        run: |
+          echo "base=${GITHUB_LABEL_NAME#cherry-pick/}" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_LABEL_NAME: ${{ github.event.label.name }}
+
+  cherry-pick:
+    needs: parse-label
+    uses: GLB-CES-PrivateCloud/Actions/.github/workflows/cherryPickPr.yml@main
+    with:
+      pr_number: ${{ github.event.pull_request.number }}
+      base_branch: ${{ needs.parse-label.outputs.base_branch }}
+    secrets: inherit

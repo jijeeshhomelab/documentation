@@ -1,0 +1,45 @@
+name: markdownlint
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - 'FEATURE*'
+      - 'develop'
+      - 'master*'
+
+jobs:
+  lint-files:
+    name: Run Reviewdog
+    runs-on: ubuntu-latest
+    steps:
+    - uses: reviewdog/action-setup@v1
+      with:
+        reviewdog_version: latest
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+          fetch-depth: 0
+
+    - name: Only check modified files
+      id: changed-files
+      uses: tj-actions/changed-files@v45
+      with:
+        files: '**/*.md'
+        files_ignore:  |
+         .github/**
+         themes/**
+         .gitmodules
+         config.toml
+         .wordlist.txt
+         **/*.svg
+         workInstructions/README.md
+
+    - name: Execute markdown-lint on changed files
+      uses: reviewdog/action-markdownlint@v0.25.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        markdownlint_flags: ${{ steps.changed-files.outputs.all_changed_files }}
+        filter_mode: file

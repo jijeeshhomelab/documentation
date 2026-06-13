@@ -1,0 +1,12 @@
+name: Create a list of operations playbooks
+on:
+  workflow_dispatch:
+  schedule:
+   - cron: '0 14 * * 5'
+
+jobs:
+  create-document:
+    uses: GLB-CES-PrivateCloud/Actions/.github/workflows/create_list_ops_playbooks.yml@main
+    secrets:
+      GH_ACTIONS_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
+        

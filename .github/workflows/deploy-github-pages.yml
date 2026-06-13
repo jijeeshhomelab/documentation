@@ -1,0 +1,16 @@
+name: 📖 Deploy GitHub Pages Using Hugo
+on:
+  workflow_dispatch:
+  push:
+   branches:
+      - 'develop'
+      - 'DHC-[0-9].[0-9]'
+      - 'master-[2-9].[0-9]'
+        
+jobs:
+  create-pages:
+    uses: GLB-CES-PrivateCloud/Actions/.github/workflows/hugo-pages.yml@main
+    secrets:
+      GH_ACTIONS_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
+    with:
+      GH_BRANCH: ${{ github.ref_name }}

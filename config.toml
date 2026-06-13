@@ -1,0 +1,64 @@
+#baseurl = "https://private-cloud.atosgitpages.com/dhc-documentation/"
+#contentdir    = "."
+#layoutdir     = "layouts"
+#publishdir    = "public"
+title = "VCS Documentation"
+#canonifyurls  = true
+relativeurls = true
+#ignorefiles = "themes/*"
+uglyurls = true
+
+DefaultContentLanguage = "en"
+theme = "ace-documentation"
+metaDataFormat = "yaml"
+pygmentsUseClasses = true
+pygmentCodeFences = true
+
+# ACE Settings
+disableSearch = true 
+  
+[module]
+[[module.mounts]]
+  source = 'main'
+  target = 'content'
+[[module.mounts]]
+  source = 'design'
+  target = 'content/design'
+[[module.mounts]]
+  source = 'workInstructions'
+  target = 'content/workinstructions'
+[[module.mounts]]
+  source = 'design/images'
+  target = 'static/images'
+[[module.mounts]]
+  source = 'workInstructions/images'
+  target = 'static/images'
+[Params]
+  subtitle = "Hugo Blog Template for GitLab Pages"
+  logo = "img/avatar-icon.png"
+  favicon = "img/favicon.ico"
+  dateFormat = "January 2, 2006"
+  commit = false
+  rss = true
+  comments = true
+#  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
+
+[markup]
+  [markup.goldmark.extensions]
+    definitionList = true
+    footnote = false
+    linkify = true
+    strikethrough = true
+    table = true
+    taskList = true
+    typographer = true
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.tableOfContents]
+    endLevel = 4
+    ordered = false
+    startLevel = 1
+
+[Author]
+  name = "VMware Cloud Services"
