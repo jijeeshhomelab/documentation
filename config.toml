@@ -1,4 +1,4 @@
-#baseurl = "https://private-cloud.atosgitpages.com/dhc-documentation/"
+#baseurl = "https://private-cloud.atosgitpages.com/documentation/"
 #contentdir    = "."
 #layoutdir     = "layouts"
 #publishdir    = "public"

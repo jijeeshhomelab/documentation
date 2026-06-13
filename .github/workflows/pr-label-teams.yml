@@ -10,4 +10,4 @@ jobs:
       - uses: equitybee/team-label-action@main
         with:
           repo-token: ${{ secrets.GH_ACTIONS_TOKEN }}
-          organization-name: GLB-CES-PrivateCloud
+          organization-name: jijeeshhomelab

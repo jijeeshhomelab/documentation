@@ -25,7 +25,7 @@ jobs:
 
   cherry-pick:
     needs: parse-label
-    uses: GLB-CES-PrivateCloud/Actions/.github/workflows/cherryPickPr.yml@main
+    uses: jijeeshhomelab/Actions/.github/workflows/cherryPickPr.yml@main
     with:
       pr_number: ${{ github.event.pull_request.number }}
       base_branch: ${{ needs.parse-label.outputs.base_branch }}

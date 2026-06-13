@@ -9,7 +9,7 @@ on:
         
 jobs:
   create-pages:
-    uses: GLB-CES-PrivateCloud/Actions/.github/workflows/hugo-pages.yml@main
+    uses: jijeeshhomelab/Actions/.github/workflows/hugo-pages.yml@main
     secrets:
       GH_ACTIONS_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
     with:

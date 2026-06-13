@@ -5,6 +5,6 @@ on:
   
 jobs:
   create-pages:
-    uses: GLB-CES-PrivateCloud/Actions/.github/workflows/test-build-pages.yml@main
+    uses: jijeeshhomelab/Actions/.github/workflows/test-build-pages.yml@main
     secrets:
       GH_ACTIONS_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
