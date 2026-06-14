@@ -124,4 +124,48 @@
 &lt;hr&gt;
 &lt;h1 id="5-detailed-architecture-overview"&gt;5. Detailed Architecture Overview&lt;/h1&gt;
 &lt;h2 id="51-logical-design"&gt;5.1 Logical Design&lt;/h2&gt;
-&lt;p&gt;Describe detailed architecture components and interactions.&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;Describe detailed architecture components and interactions.&lt;/p&gt;</description></item><item><title/><link>/workinstructions/openstack-flamingo-on-ubuntu-24.04-1.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/workinstructions/openstack-flamingo-on-ubuntu-24.04-1.html</guid><description>&lt;h2 id="node-setup"&gt;Node Setup&lt;/h2&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;Server Name&lt;/th&gt;
+					&lt;th&gt;IP Internal&lt;/th&gt;
+					&lt;th&gt;IP External&lt;/th&gt;
+					&lt;th&gt;CPU, RAM&lt;/th&gt;
+					&lt;th&gt;Storage&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Controller.homelab.com&lt;/td&gt;
+					&lt;td&gt;172.26.0.21&lt;/td&gt;
+					&lt;td&gt;172.26.1.21&lt;/td&gt;
+					&lt;td&gt;4, 8 Gb&lt;/td&gt;
+					&lt;td&gt;100Gb, 40Gb (SSD), 100Gb&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Compute.homelab.com&lt;/td&gt;
+					&lt;td&gt;172.26.0.22&lt;/td&gt;
+					&lt;td&gt;172.26.1.22&lt;/td&gt;
+					&lt;td&gt;4, 8 Gb&lt;/td&gt;
+					&lt;td&gt;100Gb + 100Gb&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;Storage.homelab.com&lt;/td&gt;
+					&lt;td&gt;172.26.0.23&lt;/td&gt;
+					&lt;td&gt;172.26.1.23&lt;/td&gt;
+					&lt;td&gt;4, 8 Gb&lt;/td&gt;
+					&lt;td&gt;100Gb + 200Gb&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="controller-node-disk-layout-setup"&gt;Controller Node Disk Layout setup&lt;/h3&gt;
+&lt;p&gt;sda (100 GB) → OS root (/)
+sdb (40 GB) → MariaDB, RabbitMQ, Etcd
+sdc (100 GB) → Glance images + logs&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Verify Disks&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;lsblk
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;2. Partition and Format sdb (40 GB)&lt;/strong&gt;&lt;br&gt;
+sdb1 → MariaDB (/var/lib/mysql) ~20 GB&lt;br&gt;
+sdb2 → RabbitMQ (/var/lib/rabbitmq) ~10 GB&lt;br&gt;
+sdb3 → Etcd (/var/lib/etcd) ~10 GB&lt;/p&gt;</description></item></channel></rss>
