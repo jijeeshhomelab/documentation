@@ -1,1 +1,13 @@
-site_name: My Docs
+site_name: HomeLab Documentation
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - User Guide:
+      - Overview: UserGuide/index.md
+  - Design:
+      - Overview: design/index.md
+  - Work Instructions:
+      - Overview: workInstructions/index.md
