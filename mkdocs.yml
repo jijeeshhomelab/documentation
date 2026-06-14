@@ -9,5 +9,6 @@ nav:
       - Overview: UserGuide/index.md
   - Design:
       - Overview: design/index.md
+      - Design Template: design/ld-template.md
   - Work Instructions:
       - Overview: workInstructions/index.md
