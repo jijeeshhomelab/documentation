@@ -1,6 +1,6 @@
 # --- this is configuration for main documentation site ---
-site_name: Atos OneCloud - MKDocs template
-site_author: OneCloud Engineering
+site_name: ATOS VMware Cloud Services
+site_author: VCS Engineering
 # --- main page link to repo ---
 repo_url: https://github.com/jijeeshhomelab/documentation
 repo_name: GitHub
