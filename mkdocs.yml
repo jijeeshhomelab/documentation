@@ -1,1 +1,97 @@
-site_name: My Docs
+# --- this is configuration for main documentation site ---
+site_name: Atos OneCloud - MKDocs template
+site_author: OneCloud Engineering
+# --- main page link to repo ---
+repo_url: https://github.com/OneCloudDesignAuthority/doc-cloudops_docs
+repo_name: GitHub
+copyright: Copyright &copy; 2026 Atos
+
+theme:
+  name: material
+  language: en
+  font: false
+
+
+  # font:
+  #   code: Roboto Mono
+
+  features:
+    - navigation.instant
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: red
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: red
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+  logo: images/Atos_logo_white.png
+  favicon: images/Atos_logo_blue.png
+
+
+######### navigation here #######################################################
+# add link to your content here, but do not change any other section in this yaml
+
+    
+      
+    
+######### end of navigation block ###############################################
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - admonition
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      linenums: true
+      anchor_linenums: true
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path: "."
+      check_paths: true
+  - meta
+  - attr_list
+  - smarty:
+      smart_quotes: true
+  - pymdownx.betterem
+  - def_list
+  - tables
+  - abbr
+  - footnotes
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  version:
+    provider: mike
+
+extra_css:
+  - stylesheets/extended.css
+
+plugins:
+  - search
+  - git-revision-date-localized
+  - glightbox:
+      zoomable: true
+      draggable: true
+      skip_classes:
+        - skip-lightbox
