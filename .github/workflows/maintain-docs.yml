@@ -5,12 +5,11 @@ on:
     branches:
       - main
       - develop
-      - 'master-*'
+      - master-*
   workflow_dispatch:
 
 jobs:
   build-deploy:
-    name: Build and deploy docs
     runs-on: ubuntu-latest
 
     permissions:
@@ -20,18 +19,10 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
-      - name: Set up Python 🐍
+      - name: Setup Python 🐍
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Cache dependencies 💾
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
 
       - name: Install dependencies 🔧
         run: pip install -r requirements.txt
@@ -44,25 +35,25 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      # ✅ YAML-safe version mapping (POSIX shell safe)
-      - name: Deploy version 🚀
+      - name: Deploy docs 🚀
         shell: bash
         run: |
           BRANCH="${GITHUB_REF_NAME}"
 
+          # Default version = branch name
           VERSION="$BRANCH"
 
-          case "$BRANCH" in
-            master-*)
-              VERSION="${BRANCH#master-}"
-              ;;
-          esac
+          # Convert master-x.x → x.x
+          if [[ "$BRANCH" == master-* ]]; then
+            VERSION="${BRANCH#master-}"
+          fi
 
           echo "Branch: $BRANCH"
           echo "Version: $VERSION"
 
           mike deploy "$VERSION" --update-aliases --push
 
+          # Set main as default homepage
           if [ "$BRANCH" = "main" ]; then
             mike set-default "$VERSION" --push
           fi
