@@ -9,35 +9,35 @@ on:
 jobs:
   build-deploy:
     name: Build and deploy docs
+    runs-on: ubuntu-latest
+
     permissions:
       contents: write
-      pull-requests: read
       pages: write
-
-    runs-on: ubuntu-latest
+      pull-requests: read
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v6
-      
-      - name: Set up Python 3.14 ⚙️ 🐍
-        uses: actions/setup-python@v6
+        uses: actions/checkout@v4
+
+      - name: Set up Python 🐍
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.14'
+          python-version: '3.11'
 
       - name: Cache dependencies 💾
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('docs/requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-            ${{ runner.os }}-
 
       - name: Install dependencies 🔧
-        working-directory: docs
-        run: make install
+        run: pip install -r requirements.txt
 
-      - name: Build and deploy to GitHub Pages 🏗️ 🚀
-        working-directory: docs
-        run: make deploy
+      - name: Build site 🏗️
+        run: mkdocs build --strict
+
+      - name: Deploy to GitHub Pages 🚀
+        run: mkdocs gh-deploy --force
