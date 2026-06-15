@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # --- this is configuration for main documentation site ---
 site_name: Atos OneCloud - MKDocs template
 site_author: OneCloud Engineering
@@ -95,3 +96,19 @@ plugins:
       draggable: true
       skip_classes:
         - skip-lightbox
+=======
+site_name: HomeLab Documentation
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - User Guide:
+      - Overview: UserGuide/index.md
+  - Design:
+      - Overview: design/index.md
+      - Design Template: design/hld-template
+  - Work Instructions:
+      - Overview: workInstructions/index.md
+>>>>>>> 64614bf8f6bfcc555c2f3c2b4b32620463c8b78e
