@@ -44,25 +44,25 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      # ✅ SMART VERSION MAPPING
+      # ✅ YAML-safe version mapping (POSIX shell safe)
       - name: Deploy version 🚀
+        shell: bash
         run: |
           BRANCH="${GITHUB_REF_NAME}"
 
-          # Default version = branch name
           VERSION="$BRANCH"
 
-          # Transform master-2.1 → 2.1
-          if [[ "$BRANCH" == master-* ]]; then
-            VERSION="${BRANCH#master-}"
-          fi
+          case "$BRANCH" in
+            master-*)
+              VERSION="${BRANCH#master-}"
+              ;;
+          esac
 
-          echo "Deploying version: $VERSION (from branch: $BRANCH)"
+          echo "Branch: $BRANCH"
+          echo "Version: $VERSION"
 
           mike deploy "$VERSION" --update-aliases --push
 
-          # Set main as default landing page
           if [ "$BRANCH" = "main" ]; then
             mike set-default "$VERSION" --push
           fi
-``
