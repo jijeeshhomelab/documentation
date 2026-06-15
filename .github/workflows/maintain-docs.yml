@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - 'master-*'
   workflow_dispatch:
 
 jobs:
@@ -35,20 +36,33 @@ jobs:
       - name: Install dependencies 🔧
         run: pip install -r requirements.txt
 
-      # ✅ Validate config (helps catch errors early)
       - name: Validate MkDocs config
         run: mkdocs build --strict
 
-      # ✅ Required for mike to push to gh-pages
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      # ✅ VERSIONED DEPLOYMENT (main → main, develop → develop)
+      # ✅ SMART VERSION MAPPING
       - name: Deploy version 🚀
         run: |
-          VERSION="${GITHUB_REF_NAME}"
+          BRANCH="${GITHUB_REF_NAME}"
+
+          # Default version = branch name
+          VERSION="$BRANCH"
+
+          # Transform master-2.1 → 2.1
+          if [[ "$BRANCH" == master-* ]]; then
+            VERSION="${BRANCH#master-}"
+          fi
+
+          echo "Deploying version: $VERSION (from branch: $BRANCH)"
 
           mike deploy "$VERSION" --update-aliases --push
-          mike set-default "$VERSION" --push
+
+          # Set main as default landing page
+          if [ "$BRANCH" = "main" ]; then
+            mike set-default "$VERSION" --push
+          fi
+``
