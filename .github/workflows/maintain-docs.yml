@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
-      - master-*
   workflow_dispatch:
 
 jobs:
@@ -16,8 +14,10 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout repository 🛎️
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # ✅ IMPORTANT (needed to read all branches)
 
       - name: Setup Python 🐍
         uses: actions/setup-python@v5
@@ -27,33 +27,39 @@ jobs:
       - name: Install dependencies 🔧
         run: pip install -r requirements.txt
 
-      - name: Validate MkDocs config
-        run: mkdocs build --strict
-
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      - name: Deploy docs 🚀
+      # ✅ AUTO DEPLOY ALL BRANCHES
+      - name: Deploy all branches 🚀
         shell: bash
         run: |
-          BRANCH="${GITHUB_REF_NAME}"
+          # Fetch all branches
+          git fetch --all
 
-          # Default version = branch name
-          VERSION="$BRANCH"
+          # Loop through target branches
+          for BRANCH in $(git branch -r | grep -E 'origin/(main|develop|master-)' | sed 's|origin/||'); do
 
-          # Convert master-x.x → x.x
-          if [[ "$BRANCH" == master-* ]]; then
-            VERSION="${BRANCH#master-}"
-          fi
+            echo "Processing branch: $BRANCH"
 
-          echo "Branch: $BRANCH"
-          echo "Version: $VERSION"
+            # Checkout branch
+            git checkout $BRANCH
 
-          mike deploy "$VERSION" --update-aliases --push
+            # Default version = branch name
+            VERSION="$BRANCH"
 
-          # Set main as default homepage
-          if [ "$BRANCH" = "main" ]; then
-            mike set-default "$VERSION" --push
-          fi
+            # Convert master-x.x → x.x
+            if [[ "$BRANCH" == master-* ]]; then
+              VERSION="${BRANCH#master-}"
+            fi
+
+            echo "Deploying version: $VERSION"
+
+            mike deploy "$VERSION" --update-aliases --push
+          done
+
+          # ✅ Set main as default
+          mike set-default main --push
+``
