@@ -1,6 +1,6 @@
 # --- this is configuration for main documentation site ---
-site_name: ATOS VMware Cloud Services
-site_author: VCS Engineering
+site_name: Jijeesh Test
+site_author: Test Engineering
 # --- main page link to repo ---
 repo_url: https://github.com/jijeeshhomelab/documentation
 repo_name: GitHub
