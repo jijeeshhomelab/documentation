@@ -1,4 +1,4 @@
-#baseurl = "https://private-cloud.atosgitpages.com/documentation/"
+
 #contentdir    = "."
 #layoutdir     = "layouts"
 #publishdir    = "public"
@@ -61,4 +61,4 @@ disableSearch = true
     startLevel = 1
 
 [Author]
-  name = "VMware Cloud Services"
+  name = "Test"
